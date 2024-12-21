@@ -4,14 +4,15 @@
         "context": "..",
         "dockerfile": "Dockerfile",
         "args": {
-            "UV_VERSION": "0.5.9",
-            "DEBIAN_VERSION": "bookworm"
+            "PYTHON_INTERPRETER_VERSION": "3.12"
         }
     },
-    "features": {
-        "ghcr.io/dhoeric/features/hadolint:1": {}
-    },
+    "workspaceMount": "source=uv_volume,target=/opt/app-root/src,type=volume",
+    "workspaceFolder": "/opt/app-root/src",
     "customizations": {
+        "settings": {
+            "python.defaultInterpreterPath": "/opt/app-root/src/.venv/bin/python3",
+        },
         "vscode": {
             "extensions": [
                 "charliermarsh.ruff",
@@ -31,9 +32,9 @@
         "DISPLAY": "dummy",
         "PYTHONUNBUFFERED": "True",
         "UV_LINK_MODE": "copy",
-        "UV_PROJECT_ENVIRONMENT": "/home/vscode/.venv"
+        "UV_PROJECT_ENVIRONMENT": "/opt/app-root/src/.venv",
     },
     "postCreateCommand": "uv sync --frozen",
     "postStartCommand": "uv run pre-commit install",
-    "remoteUser": "vscode"
+    "remoteUser": "default"
 }
