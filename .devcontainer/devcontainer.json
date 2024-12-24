@@ -4,15 +4,15 @@
         "context": "..",
         "dockerfile": "Dockerfile",
     },
-    "workspaceMount": "source=${localWorkspaceFolder},target=/opt/app-root,type=bind",
-    "workspaceFolder": "/opt/app-root",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/opt/app-root/src,type=bind",
+    "workspaceFolder": "/opt/app-root/src",
     "features": {
         "ghcr.io/devcontainers-contrib/features/exercism-cli:1": {},
         "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
     },
     "customizations": {
         "settings": {
-            "python.defaultInterpreterPath": "/opt/app-root/.venv/bin/python",
+            "python.defaultInterpreterPath": "/opt/app-root/bin/python",
         },
         "vscode": {
             "extensions": [
@@ -34,11 +34,9 @@
         "DISPLAY": "dummy",
         "PYTHONUNBUFFERED": "True",
         "UV_LINK_MODE": "copy",
-        "UV_PROJECT_ENVIRONMENT": "/opt/app-root/.venv",
-        "UV_PYTHON_PREFERENCE": "only-system",
-        "UV_PYTHON": "3.13",
+        "UV_PROJECT_ENVIRONMENT": "/opt/app-root",
     },
     "postCreateCommand": "uv sync --frozen",
-    "postStartCommand": "uv run pre-commit install; uv venv",
+    "postStartCommand": "uv run pre-commit install",
     "remoteUser": "default"
 }

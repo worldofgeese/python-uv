@@ -9,15 +9,12 @@ FROM ghcr.io/hadolint/hadolint:$HADOLINT_VERSION AS hadolint
 # syntax=docker/dockerfile:1
 FROM quay.io/fedora/python-$PYTHON_IMAGE_VERSION:${PYTHON_IMAGE_VERSION} AS base
 
-WORKDIR /opt/app-root/
-
 # Set permissions and group ownership for use by rootless Podman and OpenShift
 USER 0
-RUN chown -R 1001:0 /opt/app-root/ && chmod -R g=u /opt/app-root/
+RUN chown -R 1001:0 /opt/app-root/src && chmod -R g=u /opt/app-root/src
 USER 1001
 
 # Copy UV binary from the UV container into the final image
 FROM base
 COPY --from=uv --chown=1001:0 /uv /uvx /bin/
 COPY --from=hadolint /bin/hadolint /bin/
-
