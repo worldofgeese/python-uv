@@ -3,15 +3,16 @@
     "build": {
         "context": "..",
         "dockerfile": "Dockerfile",
-        "args": {
-            "PYTHON_INTERPRETER_VERSION": "3.12"
-        }
     },
-    "workspaceMount": "source=uv_volume,target=/opt/app-root/src,type=volume",
-    "workspaceFolder": "/opt/app-root/src",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/opt/app-root,type=bind",
+    "workspaceFolder": "/opt/app-root",
+    "features": {
+        "ghcr.io/devcontainers-contrib/features/exercism-cli:1": {},
+        "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {},
+    },
     "customizations": {
         "settings": {
-            "python.defaultInterpreterPath": "/opt/app-root/src/.venv/bin/python3",
+            "python.defaultInterpreterPath": "/opt/app-root/.venv/bin/python",
         },
         "vscode": {
             "extensions": [
@@ -24,7 +25,8 @@
                 "njpwerner.autodocstring",
                 "redhat.vscode-yaml",
                 "shardulm94.trailing-spaces",
-                "tamasfe.even-better-toml"
+                "tamasfe.even-better-toml",
+                "ms-python.mypy-type-checker"
             ]
         }
     },
@@ -32,9 +34,11 @@
         "DISPLAY": "dummy",
         "PYTHONUNBUFFERED": "True",
         "UV_LINK_MODE": "copy",
-        "UV_PROJECT_ENVIRONMENT": "/opt/app-root/src/.venv",
+        "UV_PROJECT_ENVIRONMENT": "/opt/app-root/.venv",
+        "UV_PYTHON_PREFERENCE": "only-system",
+        "UV_PYTHON": "3.13",
     },
     "postCreateCommand": "uv sync --frozen",
-    "postStartCommand": "uv run pre-commit install",
+    "postStartCommand": "uv run pre-commit install; uv venv",
     "remoteUser": "default"
 }

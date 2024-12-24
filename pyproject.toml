@@ -6,14 +6,11 @@ description = "This repository contains configurations to set up a Python develo
 authors = [{ name = "a5chin", email = "a5chin.origin+contact@gmail.com" }]
 maintainers = [{ name = "a5chin", email = "a5chin.origin+contact@gmail.com" }]
 
-requires-python = ">=3.9"
+requires-python = ">=3.13"
 readme = "README.md"
 license = { file = "LICENSE" }
 
-dependencies = [
-    "google-cloud-logging>=3.11.3",
-    "pydantic>=2.10.3",
-]
+dependencies = ["google-cloud-logging>=3.11.3", "pydantic>=2.10.3"]
 
 [tool.uv]
 dev-dependencies = [
@@ -21,4 +18,5 @@ dev-dependencies = [
     "pyright>=1.1.390",
     "pytest>=8.3.4",
     "ruff>=0.8.3",
+    "mypy>=1.14.0",
 ]
